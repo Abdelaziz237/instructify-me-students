@@ -1,4 +1,4 @@
-package com.instructify_me.students.ui.theme
+package com.instructify_me.students.core.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
