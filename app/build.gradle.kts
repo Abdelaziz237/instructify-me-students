@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.coroutines.core)
 
+    // GSON
+    implementation(libs.com.google.code.gson)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
