@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.instructify-me.students"
+    namespace = "com.instructify_me.students"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.instructify-me.students"
+        applicationId = "com.instructify_me.students"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
