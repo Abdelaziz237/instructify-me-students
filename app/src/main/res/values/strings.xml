@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Instructify Me</string>
+    <string name="explore_app">Unlock Your Potential</string>
+    <string name="welcome_message">Welcome to InstructifyMe</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_account">Create account</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="dont_have_account">Don\'t have account?</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="username">Username</string>
+    <string name="already_have_account">Already have account</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="feed">Feed</string>
+    <string name="portal">Portal</string>
+    <string name="profile">Profile</string>
+    <string name="portal_title">Find the teacher who will help you best!!</string>
+    <string name="instructify_me_banner">Unleash you potential power with InstructifyMe!!</string>
+    <string name="categories">Categories</string>
+    <string name="recommended_tutors">Recommended Teachers</string>
+    <string name="book">Book Session</string>
+    <string name="latest">Latest</string>
+    <string name="popular">Popular</string>
+    <string name="unread">Unread</string>
+    <string name="vote_up">Vote Up</string>
 </resources>

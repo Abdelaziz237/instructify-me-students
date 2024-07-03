@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+
 
     // KTOR
     implementation(libs.ktor.client.core)
@@ -66,10 +68,14 @@ dependencies {
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(libs.kotlinx.coroutines.core)
 
     // GSON
     implementation(libs.com.google.code.gson)
+    implementation(libs.androidx.navigation.compose)
+
+
+    // Jetpack DataStore
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
