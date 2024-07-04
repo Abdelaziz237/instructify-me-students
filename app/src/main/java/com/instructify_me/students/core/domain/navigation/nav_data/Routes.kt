@@ -5,6 +5,7 @@ enum class Routes {
     AUTH_SCREEN,
     SIGN_IN_SCREEN,
     SIGN_UP_SCREEN,
+    INTERESTS_SCREEN,
     MAIN_SCREEN,
     HOME_SCREEN,
     FEED_SCREEN,

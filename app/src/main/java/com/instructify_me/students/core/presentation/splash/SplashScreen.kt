@@ -40,8 +40,7 @@ fun SplashScreen(
     navigateToSignIn: () -> Unit,
     navigateToSignUp: () -> Unit,
     navigateToHome: () -> Unit,
-    client: LocalClient,
-    viewModel: SplashViewModel = viewModel(modelClass = SplashViewModel::class.java, factory = SplashViewModel.SplashViewModelFactory(client))
+    viewModel: SplashViewModel = viewModel(modelClass = SplashViewModel::class.java)
 ) {
     val state = viewModel.state.value
 

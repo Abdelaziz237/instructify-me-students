@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.instructify_me.students.auth.presentation.interest.InterestsScreen
 import com.instructify_me.students.auth.presentation.register.ui.SignUpScreen
 import com.instructify_me.students.auth.presentation.sign_in.ui.SignInScreen
 import com.instructify_me.students.core.domain.navigation.nav_data.Screen
@@ -14,12 +15,10 @@ import com.instructify_me.students.home.presentation.ui.HomeScreen
 @Composable
 fun AppNavigation(
     navController: NavHostController,
-    client: LocalClient
 ) {
     NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(route = Screen.SplashScreen.route) {
             SplashScreen(
-                client = client,
                 navigateToSignIn = {
                     navController.navigate(Screen.AuthScreen.SignInScreen.route)
                 },
@@ -45,15 +44,20 @@ fun AppNavigation(
 
         composable(route = Screen.AuthScreen.SignUpScreen.route) {
             SignUpScreen(
+                onRegistered = {
+                    navController.navigate(Screen.AuthScreen.InterestsScreen.route)
+                }
+            )
+        }
+
+        composable(route = Screen.AuthScreen.InterestsScreen.route) {
+            InterestsScreen(
                 goToSignIn = {
                     navController.navigate(Screen.AuthScreen.SignInScreen.route)
                 }
             )
         }
 
-
-//        addAuthGraph(navController)
-//
         composable(route = Screen.MainScreen.route) {
             HomeScreen()
         }

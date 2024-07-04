@@ -25,4 +25,19 @@
     <string name="popular">Popular</string>
     <string name="unread">Unread</string>
     <string name="vote_up">Vote Up</string>
+    <string name="interests">Choose your\nInterests</string>
+    <string name="choose_interests">Choose at least 5 options</string>
+    <string name="status">Status</string>
+    <string name="show_info">Show Info</string>
+    <string name="bio">Change Bio</string>
+    <string name="change_email">Change Email</string>
+    <string name="change_education">Change Education</string>
+    <string name="change_name">Change Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="my_skills">Skills</string>
+    <string name="info">Info</string>
+    <string name="education">Education</string>
+    <string name="comment">Share your thoughts</string>
+    <string name="post">Post</string>
+    <string name="comment_label">Comment</string>
 </resources>

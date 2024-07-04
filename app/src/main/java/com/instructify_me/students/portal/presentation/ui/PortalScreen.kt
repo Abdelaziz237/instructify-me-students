@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,29 +34,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.instructify_me.students.R
 import com.instructify_me.students.auth.presentation.sign_in.info.LoginPageEvent
 import com.instructify_me.students.core.presentation.ui.theme.Blue
 import com.instructify_me.students.core.presentation.ui.theme.DarkBlue
+import com.instructify_me.students.core.presentation.ui.theme.ErrorRed
+import com.instructify_me.students.core.presentation.ui.theme.SuccessGreen
 import com.instructify_me.students.core.presentation.ui.theme.fontFamily
 import com.instructify_me.students.home.presentation.ui.components.AppBar
+import com.instructify_me.students.portal.presentation.info.PortalEvents
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PortalScreen(modifier: Modifier = Modifier, requestActiveState: () -> Unit, navigateUp: () -> Unit) {
+fun PortalScreen(
+    modifier: Modifier = Modifier,
+    requestActiveState: () -> Unit,
+    navigateUp: () -> Unit,
+    viewModel: PortalViewModel = viewModel(modelClass = PortalViewModel::class.java)
+) {
+    val context = LocalContext.current
+    val state = viewModel.state.value
+
+    val filteredTags = mutableListOf<String>()
 
     LaunchedEffect(Unit) {
         requestActiveState()
+        viewModel.onEvent(PortalEvents.LoadTags(context))
     }
 
     Box(modifier = modifier) {
@@ -100,8 +118,17 @@ fun PortalScreen(modifier: Modifier = Modifier, requestActiveState: () -> Unit, 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 LazyRow {
-                    items(12) {
-                        Tag(value = "Biology")
+                    items(state.tags) { tag ->
+                        Tag(
+                            value = tag,
+                            onTagClick = { isSelected ->
+                                if (isSelected) filteredTags.add(tag)
+                                else filteredTags.remove(tag)
+
+                                viewModel.onEvent(PortalEvents.FilterByTag(filteredTags))
+                            }
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
                     }
                 }
 
@@ -120,62 +147,17 @@ fun PortalScreen(modifier: Modifier = Modifier, requestActiveState: () -> Unit, 
 
                 Box(modifier = Modifier.weight(1f)) {
                     LazyRow {
-                        items(6) {
-                            when (it) {
-                                0 -> {
-                                    TutorCard(
-                                        image = painterResource(id = R.drawable.tutor_4),
-                                        tutorName = "Mohammed Sanad",
-                                        tutorJobTitle = "Business Advisor",
-                                        sessionPrice = "150"
-                                    )
-                                }
-
-                                1 -> {
-                                    TutorCard(
-                                        image = painterResource(id = R.drawable.tutor_1),
-                                        tutorName = "Mohammed Sanad",
-                                        tutorJobTitle = "Business Advisor",
-                                        sessionPrice = "150"
-                                    )
-                                }
-
-                                2 -> {
-                                    TutorCard(
-                                        image = painterResource(id = R.drawable.tutor_2),
-                                        tutorName = "Mohammed Sanad",
-                                        tutorJobTitle = "Business Advisor",
-                                        sessionPrice = "150"
-                                    )
-                                }
-
-                                3 -> {
-                                    TutorCard(
-                                        image = painterResource(id = R.drawable.tutor_3),
-                                        tutorName = "Mohammed Sanad",
-                                        tutorJobTitle = "Business Advisor",
-                                        sessionPrice = "150"
-                                    )
-                                }
-
-                                4 -> {
-                                    TutorCard(
-                                        image = painterResource(id = R.drawable.tutor_5),
-                                        tutorName = "Rahma Sanad",
-                                        tutorJobTitle = "Business Advisor",
-                                        sessionPrice = "150"
-                                    )
-                                }
-
-                                5 -> {
-                                    TutorCard(
-                                        image = painterResource(id = R.drawable.tutor_6),
-                                        tutorName = "Huda Sanad",
-                                        tutorJobTitle = "Business Advisor",
-                                        sessionPrice = "150"
-                                    )
-                                }
-                            }
+                        items(state.tutors) { tutor ->
+                            TutorCard(
+                                image = if (tutor.name == "Rahma Sanad") painterResource(id = R.drawable.tutor_5) else painterResource(id = R.drawable.tutor_4),
+                                tutorName = tutor.name,
+                                tutorJobTitle = "${tutor.jobTitle} @${tutor.jobSite}",
+                                tags = tutor.tags,
+                                sessionPrice = tutor.sessionFees,
+                                similarity = tutor.similarity,
+                                availability = tutor.availability
+                            )
+                            
                             Spacer(modifier = Modifier.width(16.dp))
                         }
                     }
@@ -194,10 +176,11 @@ fun TutorCard(
     image: Painter,
     tutorName: String,
     tutorJobTitle: String,
-    sessionPrice: String
+    tags: List<String> = listOf("python"),
+    sessionPrice: String,
+    similarity: Double,
+    availability: Boolean
 ){
-    var booked by remember { mutableStateOf(false) }
-
     Box(modifier = modifier
         .width(300.dp)
     ) {
@@ -219,21 +202,39 @@ fun TutorCard(
         Column(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
-                .background(Color.White, shape = RoundedCornerShape(16.dp))
+                .background(White, shape = RoundedCornerShape(16.dp))
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            LazyRow {
+                items(tags.subList(0, if (tags.size > 3) 3 else tags.size)) { tag ->
+                    InstructorTag(value = tag)
+                    Spacer(modifier = Modifier.width(4.dp))
+                }
+            }
+            Spacer(modifier = Modifier.height(4.dp))
+            Row {
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = tutorName,
-                        fontFamily = fontFamily,
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 16.sp,
-                        color = Color.Black
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = tutorName,
+                            fontFamily = fontFamily,
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 16.sp,
+                            color = Color.Black
+                        )
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        Image(
+                            modifier = Modifier.size(12.dp),
+                            painter = if (similarity > 0.8) painterResource(id = R.drawable.ic_gold_sim) else if  (similarity > 0.5) painterResource(id = R.drawable.ic_norm_sim) else painterResource(
+                                id = R.drawable.bg_ellipse
+                            ),
+                            contentDescription = null,
+                            alpha = if (similarity < 0.5) 0f else 1f
+                        )
+                    }
                     Text(
                         text = tutorJobTitle,
                         fontFamily = fontFamily,
@@ -242,13 +243,8 @@ fun TutorCard(
                         color = Color.LightGray
                     )
                 }
-                Image(
-                    modifier = Modifier
-                        .size(14.dp)
-                        .clickable { booked = !booked },
-                    painter = if (booked) painterResource(id = R.drawable.ic_bookmark_active) else painterResource(id = R.drawable.ic_bookmark_ideal),
-                    contentDescription = null
-                )
+
+                StatusTag(isAvailable = availability)
             }
 
             Row(
@@ -274,11 +270,11 @@ fun TutorCard(
                     }
                 ) {
                     Text(
-                        text = stringResource(id = R.string.book),
+                        text = stringResource(id = R.string.show_info),
                         fontFamily = fontFamily,
                         fontWeight = FontWeight.Normal,
                         fontSize = 12.sp,
-                        color = Color.White
+                        color = White
                     )
                 }
             }
@@ -287,36 +283,88 @@ fun TutorCard(
 }
 
 @Composable
-fun Tag(
+fun StatusTag(
+    modifier: Modifier = Modifier,
+    isAvailable: Boolean
+) {
+    val color = if (isAvailable) SuccessGreen else ErrorRed
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(10.dp))
+            .border(width = 1.dp, color = color, shape = RoundedCornerShape(16.dp))
+            .padding(horizontal = 6.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(8.dp)
+                    .clip(CircleShape)
+                    .background(color),
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = stringResource(id = R.string.status),
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 10.sp,
+                color = color
+            )
+        }
+    }
+}
+
+@Composable
+fun InstructorTag(
     modifier: Modifier = Modifier,
     value: String
+) {
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(10.dp))
+            .background(DarkBlue)
+            .padding(horizontal = 6.dp)
+    ) {
+        Text(
+            text = value,
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 8.sp,
+            color = Color.White
+        )
+    }
+}
+
+@Composable
+fun Tag(
+    modifier: Modifier = Modifier,
+    value: String,
+    onTagClick: (Boolean) -> Unit
 ) {
     var isSelected by remember { mutableStateOf(false) }
 
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(10.dp))
+            .then(
+                if (isSelected) Modifier.background(Blue)
+                else Modifier.border(
+                    width = 1.dp,
+                    color = DarkBlue,
+                    shape = RoundedCornerShape(10.dp)
+                )
+            )
             .clickable {
                 isSelected = !isSelected
+                onTagClick(isSelected)
             }
             .padding(horizontal = 8.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                modifier = Modifier.size(14.dp),
-                painter = if (isSelected) painterResource(id = R.drawable.ic_biology_active) else painterResource(id = R.drawable.ic_biology_ideal),
-                contentDescription = null
-            )
-
-            Spacer(modifier = Modifier.width(4.dp))
-
-            Text(
-                text = value,
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 14.sp,
-                color = if (isSelected) Blue else Color.Black
-            )
-        }
+        Text(
+            text = value,
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 14.sp,
+            color = if (isSelected) White else DarkBlue
+        )
     }
 }

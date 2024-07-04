@@ -32,13 +32,11 @@ class MainActivity : ComponentActivity() {
             OutTheme {
                 val navController = rememberNavController()
                 val toastViewModel: ToastViewModel = viewModel()
-                val client = LocalClient(this)
                 ToastManager.initializeToastManager(toastViewModel)
 
                 Box(modifier = Modifier.fillMaxSize()) {
                     AppNavigation(
                         navController = navController,
-                        client = client,
                     )
                     CustomToastUI(
                         modifier = Modifier

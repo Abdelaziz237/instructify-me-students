@@ -13,6 +13,7 @@ sealed class Screen(val route: String) {
     object AuthScreen: Screen(route = Routes.AUTH_SCREEN.name) {
         object SignInScreen: Screen(route = Routes.SIGN_IN_SCREEN.name)
         object SignUpScreen: Screen(route = Routes.SIGN_UP_SCREEN.name)
+        object InterestsScreen: Screen(route = Routes.INTERESTS_SCREEN.name)
 
 //        object OtpVerificationScreen: Screen(route = OTP_VERIFICATION_SCREEN)
 

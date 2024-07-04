@@ -1,0 +1,349 @@
+[
+  {
+    "category": "Programming Languages",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Java",
+      "C++",
+      "C#",
+      "Ruby",
+      "PHP",
+      "Swift",
+      "Kotlin",
+      "R",
+      "Go",
+      "TypeScript",
+      "Scala",
+      "Rust",
+      "Perl",
+      "Lua",
+      "Objective-C",
+      "Haskell",
+      "MATLAB"
+    ]
+  },
+  {
+    "category": "Data Science and Analytics",
+    "tags": [
+      "Data Science",
+      "Machine Learning",
+      "Deep Learning",
+      "Data Analysis",
+      "Big Data",
+      "Data Visualization",
+      "Statistics",
+      "Natural Language Processing (NLP)",
+      "TensorFlow",
+      "PyTorch",
+      "Pandas",
+      "NumPy",
+      "SciPy",
+      "Scikit-Learn",
+      "Keras",
+      "Apache Spark",
+      "Hadoop",
+      "Tableau",
+      "Power BI"
+    ]
+  },
+  {
+    "category": "Web Development",
+    "tags": [
+      "Front-end Development",
+      "Back-end Development",
+      "Full-stack Development",
+      "HTML",
+      "CSS",
+      "React",
+      "Angular",
+      "Vue.js",
+      "Node.js",
+      "Django",
+      "Flask",
+      "Bootstrap",
+      "jQuery",
+      "SASS",
+      "LESS",
+      "Webpack",
+      "RESTful APIs",
+      "GraphQL",
+      "Jamstack",
+      "Progressive Web Apps (PWA)"
+    ]
+  },
+  {
+    "category": "Mobile Development",
+    "tags": [
+      "Android Development",
+      "iOS Development",
+      "Flutter",
+      "React Native",
+      "Xamarin",
+      "SwiftUI",
+      "Kotlin Multiplatform",
+      "Mobile UI/UX Design",
+      "Mobile Security"
+    ]
+  },
+  {
+    "category": "Cloud Computing",
+    "tags": [
+      "AWS",
+      "Google Cloud Platform",
+      "Microsoft Azure",
+      "Cloud Security",
+      "DevOps",
+      "Serverless Computing",
+      "Kubernetes",
+      "Docker",
+      "Terraform",
+      "OpenStack",
+      "CloudFormation",
+      "CI/CD",
+      "Cloud Architecture"
+    ]
+  },
+  {
+    "category": "Cybersecurity",
+    "tags": [
+      "Ethical Hacking",
+      "Network Security",
+      "Information Security",
+      "Cryptography",
+      "Penetration Testing",
+      "Cyber Threat Intelligence",
+      "Malware Analysis",
+      "Security Operations",
+      "Incident Response",
+      "Vulnerability Assessment",
+      "Security Compliance (GDPR, HIPAA, etc.)"
+    ]
+  },
+  {
+    "category": "Software Development",
+    "tags": [
+      "Software Engineering",
+      "Agile Methodologies",
+      "DevOps",
+      "Continuous Integration",
+      "Continuous Deployment",
+      "Version Control (Git)",
+      "Design Patterns",
+      "Software Testing",
+      "Test-Driven Development (TDD)",
+      "Behavior-Driven Development (BDD)",
+      "Refactoring",
+      "Software Architecture",
+      "Microservices",
+      "Monoliths"
+    ]
+  },
+  {
+    "category": "Artificial Intelligence",
+    "tags": [
+      "AI Fundamentals",
+      "Neural Networks",
+      "Robotics",
+      "Computer Vision",
+      "AI Ethics",
+      "Reinforcement Learning",
+      "Expert Systems",
+      "Cognitive Computing",
+      "Autonomous Systems"
+    ]
+  },
+  {
+    "category": "Game Development",
+    "tags": [
+      "Unity",
+      "Unreal Engine",
+      "Game Design",
+      "Game Programming",
+      "AR/VR Development",
+      "2D Game Development",
+      "3D Game Development",
+      "Game Physics",
+      "Game AI",
+      "Mobile Game Development"
+    ]
+  },
+  {
+    "category": "Miscellaneous",
+    "tags": [
+      "Blockchain",
+      "Bitcoin",
+      "Ethereum",
+      "Smart Contracts",
+      "Internet of Things (IoT)",
+      "Quantum Computing",
+      "Augmented Reality",
+      "Virtual Reality",
+      "3D Printing",
+      "Wearable Technology",
+      "Edge Computing",
+      "Nanotechnology",
+      "Biotechnology"
+    ]
+  },
+  {
+    "category": "Academic Subjects",
+    "tags": [
+      "Mathematics",
+      "Algebra",
+      "Calculus",
+      "Geometry",
+      "Trigonometry",
+      "Statistics",
+      "Probability",
+      "Physics",
+      "Chemistry",
+      "Biology",
+      "Earth Sciences",
+      "Environmental Science",
+      "Astronomy",
+      "Computer Science",
+      "Economics",
+      "History",
+      "Literature",
+      "Philosophy",
+      "Psychology",
+      "Sociology",
+      "Political Science"
+    ]
+  },
+  {
+    "category": "Soft Skills",
+    "tags": [
+      "Project Management",
+      "Communication Skills",
+      "Teamwork",
+      "Problem-Solving",
+      "Critical Thinking",
+      "Leadership",
+      "Time Management",
+      "Negotiation",
+      "Conflict Resolution",
+      "Public Speaking",
+      "Emotional Intelligence",
+      "Creativity"
+    ]
+  },
+  {
+    "category": "Professional Development",
+    "tags": [
+      "Career Development",
+      "Resume Writing",
+      "Interview Preparation",
+      "Networking",
+      "Personal Branding",
+      "Job Search Strategies",
+      "Professional Etiquette",
+      "Work-Life Balance",
+      "Freelancing",
+      "Entrepreneurship"
+    ]
+  },
+  {
+    "category": "Creative Arts",
+    "tags": [
+      "Graphic Design",
+      "Digital Art",
+      "Photography",
+      "Video Editing",
+      "Animation",
+      "Music Production",
+      "Writing",
+      "Creative Writing",
+      "Scriptwriting",
+      "Acting",
+      "Filmmaking",
+      "Interior Design",
+      "Fashion Design"
+    ]
+  },
+  {
+    "category": "Languages",
+    "tags": [
+      "English",
+      "Spanish",
+      "Mandarin",
+      "French",
+      "German",
+      "Japanese",
+      "Korean",
+      "Italian",
+      "Russian",
+      "Portuguese",
+      "Arabic",
+      "Hindi"
+    ]
+  },
+  {
+    "category": "Health and Fitness",
+    "tags": [
+      "Nutrition",
+      "Exercise Science",
+      "Mental Health",
+      "Yoga",
+      "Meditation",
+      "Wellness",
+      "Sports Science",
+      "Personal Training",
+      "Physical Therapy"
+    ]
+  },
+  {
+    "category": "Travel and Culture",
+    "tags": [
+      "Travel Planning",
+      "Cultural Studies",
+      "Geography",
+      "World History",
+      "Language Learning for Travel"
+    ]
+  },
+  {
+    "category": "Finance and Business",
+    "tags": [
+      "Personal Finance",
+      "Investing",
+      "Stock Market",
+      "Real Estate",
+      "Entrepreneurship",
+      "Business Management",
+      "Marketing",
+      "Sales",
+      "Human Resources",
+      "Accounting",
+      "Economics",
+      "Supply Chain Management",
+      "E-commerce",
+      "Customer Service"
+    ]
+  },
+  {
+    "category": "Life Skills",
+    "tags": [
+      "Home Improvement",
+      "Gardening",
+      "DIY Projects",
+      "Auto Maintenance",
+      "Parenting",
+      "Financial Planning",
+      "Time Management"
+    ]
+  },
+  {
+    "category": "Others",
+    "tags": [
+      "Sustainability",
+      "Renewable Energy",
+      "Climate Change",
+      "Wildlife Conservation",
+      "Social Justice",
+      "Volunteering",
+      "Human Rights"
+    ]
+  }
+]

@@ -48,7 +48,7 @@ import com.instructify_me.students.core.presentation.ui.theme.fontFamily
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    goToSignIn: () -> Unit,
+    onRegistered: () -> Unit,
     viewModel: RegisterViewModel = viewModel(modelClass = RegisterViewModel::class.java)
 ) {
     var username by remember {
@@ -134,7 +134,7 @@ fun SignUpScreen(
                         shape = RoundedCornerShape(16.dp),
                         onClick = {
                             viewModel.onEvent(RegisterPageEvent.StartLoading, callback = { })
-                            viewModel.onEvent(RegisterPageEvent.Register(username, email, password), goToSignIn)
+                            viewModel.onEvent(RegisterPageEvent.Register(username, email, password), onRegistered)
                         }
                     ) {
                         Text(
@@ -159,7 +159,7 @@ fun SignUpScreen(
                         )
                         TextButton(
                             onClick = {
-                                goToSignIn()
+                                onRegistered()
                             }
                         ) {
                             Text(

@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -109,10 +110,32 @@ fun ProfileScreen(
                     .padding(horizontal = 16.dp, vertical = 10.dp)
             ) {
                 LazyColumn {
-                    items(4) {
+                    item {
                         ProfileItem(
-                            icon = ImageVector.vectorResource(id = R.drawable.ic_profile_active),
-                            text = "Settings"
+                            icon = painterResource(id = R.drawable.ic_profile_active),
+                            text = stringResource(id = R.string.phone_number),
+                            info = "01151689482"
+                        )
+                    }
+                    item {
+                        ProfileItem(
+                            icon = painterResource(id = R.drawable.ic_tag),
+                            text = stringResource(id = R.string.my_skills),
+                            info = "Python, JavaScript, Java, C++, C#",
+                        )
+                    }
+                    item {
+                        ProfileItem(
+                            icon = painterResource(id = R.drawable.ic_info),
+                            text = stringResource(id = R.string.info),
+                            info = "I'm CS graduated from FCAI"
+                        )
+                    }
+                    item {
+                        ProfileItem(
+                            icon = painterResource(id = R.drawable.ic_edu),
+                            text = stringResource(id = R.string.education),
+                            info = "GPA: 3.88, Faculty of Computers and Artificial Intelligence"
                         )
                     }
                 }
@@ -123,11 +146,16 @@ fun ProfileScreen(
 
 @Composable
 fun ProfileItem(
-    icon: ImageVector,
-    text: String
+    icon: Painter,
+    text: String,
+    info: String
 ) {
    Row(
-       modifier = Modifier.clip(RoundedCornerShape(16.dp)).clickable {  }.padding(8.dp).padding(vertical = 10.dp),
+       modifier = Modifier
+           .clip(RoundedCornerShape(16.dp))
+           .clickable { }
+           .padding(8.dp)
+           .padding(vertical = 10.dp),
        verticalAlignment = Alignment.CenterVertically
    ) {
        Box(
@@ -142,19 +170,30 @@ fun ProfileItem(
            )
            Image(
                modifier = Modifier.size(24.dp),
-               imageVector = icon,
+               painter = icon,
                contentDescription = null
            )
        }
        Spacer(modifier = Modifier.width(16.dp))
-       Text(
-           modifier = Modifier.weight(1f),
-           text = text,
-           fontFamily = fontFamily,
-           fontWeight = FontWeight.Normal,
-           fontSize = 16.sp,
-           color = Color.Black
-       )
+       Column(
+           modifier = Modifier.weight(1f).padding(end = 8.dp)
+       ) {
+           Text(
+               text = text,
+               fontFamily = fontFamily,
+               fontWeight = FontWeight.SemiBold,
+               fontSize = 16.sp,
+               color = Color.Black
+           )
+
+           Text(
+               text = info,
+               fontFamily = fontFamily,
+               fontWeight = FontWeight.Normal,
+               fontSize = 14.sp,
+               color = Color.Black
+           )
+       }
        Image(
            modifier = Modifier.size(24.dp),
            imageVector = ImageVector.vectorResource(id = R.drawable.ic_forward),

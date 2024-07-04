@@ -14,6 +14,7 @@ val Pink40 = Color(0xFF7D5260)
 val Blue = Color(0xFF42A5F5)
 val LightBlue = Color(0xFFB1DAFB)
 val DarkBlue = Color(0xFF285C9B)
+val SkyBlue = Color(0xFF87CEEB)
 
 val MidNightBlueLight = Color(0XFF4E5556)
 val DarkGray = Color(0xFF282929)
