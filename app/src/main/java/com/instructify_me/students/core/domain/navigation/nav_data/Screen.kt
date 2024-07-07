@@ -31,6 +31,7 @@ sealed class Screen(val route: String) {
         object HomeScreen: Screen(route = Routes.HOME_SCREEN.name) {
             object FeedScreen: Screen(route = Routes.FEED_SCREEN.name)
             object PortalScreen: Screen(route = Routes.PORTAL_SCREEN.name)
+            object TutorInfoScreen: Screen(route = Routes.TUTOR_INFO_SCREEN.name)
             object ProfileScreen: Screen(route = Routes.PROFILE_SCREEN.name)
         }
 

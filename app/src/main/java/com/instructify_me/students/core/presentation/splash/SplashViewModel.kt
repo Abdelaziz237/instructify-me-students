@@ -17,7 +17,7 @@ class SplashViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            AuthRepo.setRepo(AuthRepositoryImpl(authToken = appModule.userClient.getRefreshToken()))
+            AuthRepo.setRepo(AuthRepositoryImpl(authToken = appModule.userClient.getAuthToken()))
         }
     }
 

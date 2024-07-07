@@ -20,8 +20,10 @@ import com.instructify_me.students.core.domain.di.AppModuleImpl
 import com.instructify_me.students.core.domain.model.ApiResponse
 import com.instructify_me.students.core.presentation.InstructifyMeApp.Companion.appModule
 import io.ktor.client.HttpClient
+import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
+import io.ktor.client.request.put
 import io.ktor.client.statement.bodyAsText
 import io.ktor.client.utils.EmptyContent.contentType
 import io.ktor.http.ContentType
@@ -39,7 +41,7 @@ class AuthRepositoryImpl(
     override suspend fun signIn(bodyValue: SignInBodyDTO): ApiResponse {
         val jsonBody = gson.toJson(bodyValue)
         return try {
-            val response = ktorClient.post(BASE_URL + STUDENT + SIGN_IN) {
+            val response = ktorClient.get(BASE_URL + STUDENT + SIGN_IN) {
                 contentType(ContentType.Application.Json)
                 body = TextContent(jsonBody, ContentType.Application.Json)
             }
@@ -111,7 +113,7 @@ class AuthRepositoryImpl(
     override suspend fun setInterests(bodyValue: InterestsBodyDTO): ApiResponse {
         val jsonBody = gson.toJson(bodyValue)
         return try {
-            val response = ktorClient.post(BASE_URL + STUDENT + PROFILE + INTERESTS) {
+            val response = ktorClient.put(BASE_URL + STUDENT + PROFILE) {
                 contentType(ContentType.Application.Json)
                 header("authToken", authToken)
                 body = TextContent(jsonBody, ContentType.Application.Json)

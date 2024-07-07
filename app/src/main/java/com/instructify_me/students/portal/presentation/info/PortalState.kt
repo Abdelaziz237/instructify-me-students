@@ -9,6 +9,7 @@ data class TutorState(
     val name: String,
     val jobTitle: String,
     val jobSite: String,
+    val bio: String,
     val isAvailable: Boolean,
     val tags: List<String>,
     val sessionFees: String,

@@ -10,5 +10,6 @@ enum class Routes {
     HOME_SCREEN,
     FEED_SCREEN,
     PORTAL_SCREEN,
+    TUTOR_INFO_SCREEN,
     PROFILE_SCREEN,
 }

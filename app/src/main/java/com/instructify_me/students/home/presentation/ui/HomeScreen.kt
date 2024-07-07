@@ -28,9 +28,6 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             ) {
                 HomeNavigation(
                     navController = navController,
-                    idealBottomNav = {
-                        isIdeal = true
-                    },
                     requestActiveState = {
                         isIdeal = false
                     },

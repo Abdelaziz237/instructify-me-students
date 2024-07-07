@@ -13,7 +13,6 @@ import com.instructify_me.students.profile.presentation.ui.ProfileScreen
 @Composable
 fun HomeNavigation(
     navController: NavHostController,
-    idealBottomNav: () -> Unit,
     requestActiveState: () -> Unit,
 ) {
     NavHost(
@@ -24,9 +23,6 @@ fun HomeNavigation(
         composable(route = Screen.MainScreen.HomeScreen.FeedScreen.route) {
             FeedScreen(
                 requestActiveState = requestActiveState,
-                navigateUp = {
-                    navController.navigateUp()
-                }
             )
         }
 
@@ -47,6 +43,5 @@ fun HomeNavigation(
                 }
             )
         }
-
     }
 }

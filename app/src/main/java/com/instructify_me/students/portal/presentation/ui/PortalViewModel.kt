@@ -34,6 +34,7 @@ class PortalViewModel: ViewModel() {
                 "HTML",
                 "CSS"
             ),
+            bio = "I`m software engineer graduated from faculty of computers and artificial intelligence cairo university , have strong knowledge on programming languages , develop and deploy web application , and high software skills",
             sessionFees = "500",
             similarity = 2.0,
         ),
@@ -50,6 +51,7 @@ class PortalViewModel: ViewModel() {
                 "C#",
                 "Rust",
             ),
+            bio = "I`m software engineer graduated from faculty of computers and artificial intelligence cairo university , have strong knowledge on programming languages , develop and deploy web application , and high software skills",
             sessionFees = "500",
             similarity = 2.0,
         )
@@ -61,7 +63,6 @@ class PortalViewModel: ViewModel() {
             "JavaScript",
             "Java",
             "C++",
-            "C#",
             "Ruby",
             "PHP",
             "Swift"
@@ -128,11 +129,6 @@ class PortalViewModel: ViewModel() {
                     tutors = tutors
                 )
             }
-
-            is PortalEvents.CacheTutorInfo -> {
-
-            }
-
         }
     }
 }

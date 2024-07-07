@@ -26,11 +26,11 @@ class RegisterViewModel: ViewModel() {
                         is ValidationStatus.Valid -> {
                             val userInfo = result.data
                             saveUserCredentials(userInfo.token, userInfo.refreshToken, userInfo.studentID)
+                            callback()
                         }
                         is ValidationStatus.NotValid -> {  }
                     }
                 }
-                callback()
             }
             is RegisterPageEvent.StartLoading -> {
                 _state.value = true

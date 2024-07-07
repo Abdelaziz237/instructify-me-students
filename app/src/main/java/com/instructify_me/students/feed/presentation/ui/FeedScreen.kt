@@ -22,6 +22,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -47,27 +50,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.instructify_me.students.R
 import com.instructify_me.students.auth.presentation.components.BasicTextField
+import com.instructify_me.students.core.presentation.ui.theme.Blue
+import com.instructify_me.students.core.presentation.ui.theme.DarkBlue
 import com.instructify_me.students.core.presentation.ui.theme.DarkGray
 import com.instructify_me.students.core.presentation.ui.theme.fontFamily
+import com.instructify_me.students.feed.presentation.info.FeedEvents
 
 @Composable
 fun FeedScreen(
     modifier: Modifier = Modifier,
     requestActiveState: () -> Unit,
-    navigateUp: () -> Unit
+    viewModel: FeedViewModel = viewModel(modelClass = FeedViewModel::class.java)
 ) {
     var isLoading by remember { mutableStateOf(false) }
-    var isDialogVisible by remember { mutableStateOf(false) }
+//    var isDialogVisible by remember { mutableStateOf(false) }
 
+
+    val state = viewModel.state.value
 
     LaunchedEffect(Unit) {
         requestActiveState()
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         Column {
             Spacer(modifier = Modifier.height(24.dp))
@@ -109,28 +118,34 @@ fun FeedScreen(
                                 request = "I want an instructor to explain to me the basics of the Android development",
                                 tutorName = "Sanad Mohammed",
                                 date = "24 Sep",
+                                votes = "12",
+                                commentsCount = "2",
                                 onCommentClick = {
-                                    isDialogVisible = true
+                                    viewModel.onEvent(FeedEvents.OpenAddCommentDialog)
                                 }
                             )
                         }
                         1 -> {
                             FeedItem(
-                                request = "I want an instructor to explain to me the basics of the Android development",
-                                tutorName = "Sanad Mohammed",
-                                date = "24 Sep",
+                                request = "I want an instructor to explain to me the basics of the Data Science",
+                                tutorName = "Rahma Sanad",
+                                date = "26 Sep",
+                                votes = "16",
+                                commentsCount = "5",
                                 onCommentClick = {
-                                    isDialogVisible = true
+                                    viewModel.onEvent(FeedEvents.OpenAddCommentDialog)
                                 }
                             )
                         }
                         2 -> {
                             FeedItem(
-                                request = "I want an instructor to explain to me the basics of the Android development",
+                                request = "I want an instructor to explain to me the basics of the Web development",
                                 tutorName = "Sanad Mohammed",
-                                date = "24 Sep",
+                                date = "30 Sep",
+                                votes = "20",
+                                commentsCount = "8",
                                 onCommentClick = {
-                                    isDialogVisible = true
+                                    viewModel.onEvent(FeedEvents.OpenAddCommentDialog)
                                 }
                             )
                         }
@@ -139,17 +154,74 @@ fun FeedScreen(
                 }
             }
         }
-        if (isDialogVisible) {
+        if (state.isAddCommentDialogVisible) {
             CommentDialog(
                 modifier = Modifier.align(Alignment.Center),
                 onConfirm = {
 
                 },
                 onDismissRequest = {
-
+                    viewModel.onEvent(FeedEvents.DismissAddCommentDialog)
                 }
             )
         }
+
+        if (state.isPostDialogVisible) {
+            PostDialog(
+                modifier = Modifier.align(Alignment.Center),
+                onConfirm = {
+
+                },
+                onDismissRequest = {
+                    viewModel.onEvent(FeedEvents.DismissPostDialog)
+                }
+            )
+        }
+
+        CircularFAB(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 16.dp, end = 32.dp),
+            onClick = {
+                viewModel.onEvent(FeedEvents.OpenPostDialog)
+            }
+        )
+    }
+}
+
+@Composable
+fun CircularFAB(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    FloatingActionButton(
+        modifier = modifier
+            .size(64.dp),
+        shape = CircleShape,
+        elevation = FloatingActionButtonDefaults.elevation(
+            defaultElevation = 0.dp,
+            pressedElevation = 0.dp
+        ),
+        onClick = {
+            onClick()
+        }
+    ) {
+        Image(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            DarkBlue,
+                            Blue
+                        ),
+                    ),
+                    shape = CircleShape
+                ),
+            contentScale = ContentScale.Inside,
+            painter = painterResource(id = R.drawable.ic_plus),
+            contentDescription = null
+        )
     }
 }
 
@@ -158,6 +230,8 @@ fun FeedItem(
     request: String,
     tutorName: String,
     date: String,
+    votes: String,
+    commentsCount: String,
     onCommentClick: () -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -222,9 +296,9 @@ fun FeedItem(
             Spacer(modifier = Modifier.height(8.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                VoteTag(text = "25")
+                VoteTag(text = votes)
                 Spacer(modifier = Modifier.width(10.dp))
-                CommentTag(text = "16")
+                CommentTag(text = commentsCount)
                 Spacer(modifier = Modifier.weight(1f))
                 Image(
                     modifier = Modifier
@@ -244,7 +318,7 @@ fun FeedItem(
                 Spacer(modifier = Modifier.height(16.dp))
                 
                 CommentItem(senderName = "Ahmed", text = "Great tutor!")
-                CommentItem(senderName = "Ahmed", text = "Great tutor!")
+                CommentItem(senderName = "Khaled", text = "Great tutor!")
             }
         }
     }
@@ -408,8 +482,9 @@ fun CommentDialog(
 
     Dialog(
         properties = DialogProperties(
-            dismissOnClickOutside = false,
-            dismissOnBackPress = false
+            usePlatformDefaultWidth = false,
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true
         ),
         onDismissRequest = {
             onDismissRequest()
@@ -417,24 +492,24 @@ fun CommentDialog(
     ) {
         Card(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
                 containerColor = Color.White
             ),
         ) {
-            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Column {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
+                    modifier = Modifier.padding(start = 20.dp),
                     text = stringResource(id = R.string.comment),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                     fontSize = 20.sp
                 )
-
-                Spacer(modifier = Modifier.height(14.dp))
 
                 BasicTextField(
                     label = stringResource(id = R.string.comment_label),
@@ -447,8 +522,8 @@ fun CommentDialog(
 
                 Button(
                     modifier = Modifier
-                        .height(40.dp)
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
+                        .align(Alignment.End),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Black
                     ),
@@ -458,6 +533,7 @@ fun CommentDialog(
                     }
                 ) {
                     Text(
+                        modifier = Modifier.padding(horizontal = 20.dp),
                         text = stringResource(id = R.string.post),
                         fontFamily = fontFamily,
                         fontWeight = FontWeight.SemiBold,
@@ -465,6 +541,91 @@ fun CommentDialog(
                         color = Color.White
                     )
                 }
+
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+        }
+    }
+}
+
+@Composable
+fun PostDialog(
+    modifier: Modifier,
+    onConfirm: () -> Unit,
+    onDismissRequest: () -> Unit
+) {
+    var post by remember { mutableStateOf("") }
+
+    Dialog(
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false,
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true
+        ),
+        onDismissRequest = {
+            onDismissRequest()
+        }
+    ) {
+        Card(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color.White
+            ),
+        ) {
+            Column {
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Text(
+                    modifier = Modifier.padding(start = 20.dp),
+                    text = stringResource(id = R.string.post_label),
+                    fontFamily = fontFamily,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    fontSize = 20.sp
+                )
+
+                BasicTextField(
+                    label = stringResource(id = R.string.title),
+                    onValueChanged = {
+                        post = it
+                    }
+                )
+
+                BasicTextField(
+                    label = stringResource(id = R.string.description),
+                    onValueChanged = {
+                        post = it
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(18.dp))
+
+                Button(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .align(Alignment.End),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Black
+                    ),
+                    shape = RoundedCornerShape(16.dp),
+                    onClick = {
+                        onConfirm()
+                    }
+                ) {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 20.dp),
+                        text = stringResource(id = R.string.post),
+                        fontFamily = fontFamily,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 18.sp,
+                        color = Color.White
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }

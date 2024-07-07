@@ -40,4 +40,13 @@
     <string name="comment">Share your thoughts</string>
     <string name="post">Post</string>
     <string name="comment_label">Comment</string>
+    <string name="post_label">Shout out to the world!</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="details">Details</string>
+    <string name="hourly_rate">Hourly pay:</string>
+    <string name="tutor_info_lable">Know more about the tutor</string>
+    <string name="book_">Book</string>
+    <string name="day">Day</string>
+    <string name="hour">Available Slots</string>
 </resources>
