@@ -25,6 +25,7 @@ import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.put
 import io.ktor.client.statement.bodyAsText
+import io.ktor.client.statement.request
 import io.ktor.client.utils.EmptyContent.contentType
 import io.ktor.http.ContentType
 import io.ktor.http.content.TextContent
@@ -41,7 +42,7 @@ class AuthRepositoryImpl(
     override suspend fun signIn(bodyValue: SignInBodyDTO): ApiResponse {
         val jsonBody = gson.toJson(bodyValue)
         return try {
-            val response = ktorClient.get(BASE_URL + STUDENT + SIGN_IN) {
+            val response = ktorClient.post(BASE_URL + STUDENT + SIGN_IN) {
                 contentType(ContentType.Application.Json)
                 body = TextContent(jsonBody, ContentType.Application.Json)
             }

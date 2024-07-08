@@ -27,13 +27,13 @@ class SignInViewModel: ViewModel() {
                         is ValidationStatus.Valid -> {
                             val userInfo = result.data
                             saveUserCredentials(userInfo.token, userInfo.refreshToken, userInfo.studentID)
+                            callback()
                         }
                         is ValidationStatus.NotValid -> {
-
+                        
                         }
                     }
                 }
-                callback()
             }
             is LoginPageEvent.StartLoading -> {
                 _state.value = true

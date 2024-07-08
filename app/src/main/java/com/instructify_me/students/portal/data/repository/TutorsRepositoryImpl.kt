@@ -24,8 +24,10 @@ class TutorsRepositoryImpl(
         return try {
             val response = ktorClient.get(BASE_URL + STUDENT + HOME + INSTRUCTORS) {
                 contentType(ContentType.Application.Json)
-                header("authKey", authToken)
+                header("authorization", "student $authToken")
             }
+            
+            Log.e("Tutor", "student $authToken")
 
             Log.e("Auth", response.toString())
             Log.e("Auth", response.status.value.toString())

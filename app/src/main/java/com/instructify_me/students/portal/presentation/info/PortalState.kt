@@ -1,8 +1,8 @@
 package com.instructify_me.students.portal.presentation.info
 
 data class PortalState(
-    val tags: List<String>,
-    val tutors: List<TutorState>
+    val tags: List<String> = emptyList(),
+    val tutors: List<TutorState> = emptyList()
 )
 
 data class TutorState(

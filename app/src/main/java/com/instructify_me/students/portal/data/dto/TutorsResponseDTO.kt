@@ -1,8 +1,7 @@
 package com.instructify_me.students.portal.data.dto
 
 data class TutorsResponseDTO(
-    val instructor: Instructor,
-    val adjustedSimilarity: Double
+    val instructors: List<Instructor>,
 )
 
 data class Instructor(
@@ -14,7 +13,7 @@ data class Instructor(
     val status: String,
     val skills: List<Skill>,
     val experience: List<Experience>,
-    val availability: List<Availability>,
+    val availabilities: List<Availability>,
     val __v: Int,
     val price_hour: Int,
     val bio: String

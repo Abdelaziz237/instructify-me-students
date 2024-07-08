@@ -87,6 +87,7 @@ fun PortalScreen(
     LaunchedEffect(Unit) {
         requestActiveState()
         viewModel.onEvent(PortalEvents.LoadTags(context))
+        viewModel.onEvent(PortalEvents.LoadTutors)
     }
 
     Box(modifier = modifier) {
@@ -163,7 +164,7 @@ fun PortalScreen(
                     LazyRow {
                         itemsIndexed(state.tutors) { i, tutor ->
                             TutorCard(
-                                image = if (tutor.name == "Rahma Sanad") painterResource(id = R.drawable.tutor_5) else painterResource(id = R.drawable.tutor_4),
+                                image = painterResource(id = R.drawable.tutor_4),
                                 tutorName = tutor.name,
                                 tutorJobTitle = "${tutor.jobTitle} @${tutor.jobSite}",
                                 tags = tutor.tags,
